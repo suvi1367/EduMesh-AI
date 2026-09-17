@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduMesh — Curriculum Upload</title>
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./components.css">
+</head>
+<body>
+  <main class="page-center">
+    <h1>Upload Curriculum</h1>
+
+    <form id="upload-form">
+      <label for="file-input">Curriculum PDF</label>
+      <input type="file" id="file-input" name="file" accept=".pdf" required>
+
+      <button type="submit">Upload</button>
+    </form>
+
+    <!-- Shows filename + a progress bar while uploading -->
+    <div id="upload-progress-wrap" style="display:none;">
+      <p id="upload-filename"></p>
+      <div class="progress-bar">
+        <div id="upload-progress-fill" class="progress-fill"></div>
+      </div>
+      <p id="upload-percent">0%</p>
+    </div>
+
+    <!-- Shows "Processing..." then "Ready" once the backend finishes indexing -->
+    <div id="processing-status"></div>
+
+    <div id="upload-status"></div>
+
+    <button id="continue-btn" type="button">Continue to Start Classroom →</button>
+  </main>
+
+  <script type="module" src="./teacher-upload.js"></script>
+</body>
+</html>

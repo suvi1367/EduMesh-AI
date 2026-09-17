@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduMesh — Ask a Question</title>
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./components.css">
+</head>
+<body>
+  <main class="page-center">
+    <h1 id="classroom-header">Classroom</h1>
+
+    <div class="option-row">
+      <label for="language-select">Language</label>
+      <select id="language-select">
+        <option value="en">English</option>
+        <option value="ta">Tamil</option>
+        <option value="hi">Hindi</option>
+      </select>
+
+      <label for="style-select">Explanation Style</label>
+      <select id="style-select">
+        <option value="simple">Simple</option>
+        <option value="detailed">Detailed</option>
+        <option value="stepwise">Step-by-step</option>
+      </select>
+    </div>
+
+    <form id="ask-form">
+      <label for="question-input">Your Question</label>
+      <input type="text" id="question-input" name="question" required>
+
+      <div class="voice-row">
+        <!-- Placeholders only — Member 4 wires up real STT/TTS later -->
+        <button type="button" class="voice-btn" disabled title="Available after STT/TTS integration">🎤 Speak</button>
+        <button type="button" class="voice-btn" disabled title="Available after STT/TTS integration">🔊 Listen</button>
+      </div>
+
+      <button type="submit">Ask</button>
+    </form>
+
+    <div id="ask-status"></div>
+
+    <div id="answer-card" class="answer-card" style="display:none;">
+      <h3>Answer</h3>
+      <p id="answer-text"></p>
+      <p class="source-line">
+        Source: <span id="answer-source"></span> ·
+        Chapter: <span id="answer-chapter"></span> ·
+        Page: <span id="answer-page"></span>
+      </p>
+    </div>
+  </main>
+
+  <script type="module" src="./student-ask.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduMesh — Analytics</title>
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./components.css">
+</head>
+<body>
+  <main class="page-center wide">
+    <h1>Classroom Analytics</h1>
+
+    <button id="refresh-btn" type="button">Refresh</button>
+    <div id="analytics-status"></div>
+
+    <div class="stat-grid">
+      <div class="stat-box">
+        <p class="stat-number" id="stat-connected">0</p>
+        <p class="stat-label">Connected Students</p>
+      </div>
+      <div class="stat-box">
+        <p class="stat-number" id="stat-total">0</p>
+        <p class="stat-label">Total Questions</p>
+      </div>
+      <div class="stat-box">
+        <p class="stat-number" id="stat-unique">0</p>
+        <p class="stat-label">Unique Questions</p>
+      </div>
+      <div class="stat-box">
+        <p class="stat-number" id="stat-review">0</p>
+        <p class="stat-label">Needs Review</p>
+      </div>
+    </div>
+
+    <h3>Frequently Asked Topics</h3>
+    <ul id="topics-list"></ul>
+  </main>
+
+  <script type="module" src="./teacher-analytics.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduMesh — Teacher Login</title>
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./components.css">
+</head>
+<body>
+  <main class="page-center">
+    <h1>Teacher Login</h1>
+
+    <!-- Lets you point this browser at the right classroom Hub -->
+    <div class="hub-config">
+      <label for="hub-url">Hub Address</label>
+      <input type="text" id="hub-url" placeholder="http://192.168.1.10:8000">
+      <button id="save-hub" type="button">Save</button>
+    </div>
+
+    <form id="login-form">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <!-- teacher-login.js fills this with loading/error/success messages -->
+    <div id="login-status"></div>
+  </main>
+
+  <script type="module" src="./teacher-login.js"></script>
+</body>
+</html>

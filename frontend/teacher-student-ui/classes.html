@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EduMesh — Classes & Subjects</title>
+  <link rel="stylesheet" href="./base.css">
+  <link rel="stylesheet" href="./components.css">
+</head>
+<body>
+  <main class="page-center">
+    <h1>Create Class</h1>
+
+    <form id="class-form">
+      <label for="class-name">Class Name</label>
+      <input type="text" id="class-name" name="className" placeholder="e.g. Grade 8 - A" required>
+
+      <button type="submit">Create Class</button>
+    </form>
+    <div id="class-status"></div>
+
+    <hr>
+
+    <h1>Create Subject</h1>
+
+    <form id="subject-form">
+      <label for="class-select">Class</label>
+      <select id="class-select" name="classId" required></select>
+
+      <label for="subject-name">Subject Name</label>
+      <input type="text" id="subject-name" name="subjectName" placeholder="e.g. Mathematics" required>
+
+      <button type="submit">Create Subject</button>
+    </form>
+    <div id="subject-status"></div>
+
+    <button id="continue-btn" type="button">Continue to Curriculum Upload →</button>
+  </main>
+
+  <script type="module" src="./teacher-classes.js"></script>
+</body>
+</html>
