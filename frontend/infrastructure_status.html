@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduMesh AI — Classroom Hub Infrastructure Status</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-card: rgba(19, 26, 43, 0.7);
+            --bg-card-border: rgba(255, 255, 255, 0.08);
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #22c55e;
+            --accent-amber: #f59e0b;
+            --accent-purple: #a855f7;
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-code: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.12) 0px, transparent 50%);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            padding: 2rem 1.5rem;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--bg-card-border);
+        }
+
+        .brand-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-title h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-tag {
+            font-size: 0.75rem;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent-blue);
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--accent-green);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--accent-green);
+            box-shadow: 0 0 10px var(--accent-green);
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--bg-card-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-icon {
+            color: var(--accent-blue);
+        }
+
+        .metric-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .metric-label {
+            color: var(--text-muted);
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: var(--text-main);
+            font-family: var(--font-code);
+        }
+
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 0;
+        }
+
+        .qr-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 12px;
+            background: white;
+            padding: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .lan-url-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed rgba(56, 189, 248, 0.4);
+            padding: 0.6rem 1rem;
+            border-radius: 8px;
+            font-family: var(--font-code);
+            font-size: 0.95rem;
+            color: var(--accent-blue);
+            text-align: center;
+            word-break: break-all;
+            width: 100%;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #38bdf8, #3b82f6);
+            color: #ffffff;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .full-width-card {
+            grid-column: 1 / -1;
+        }
+
+        footer {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--bg-card-border);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="brand-title">
+                <h1>EduMesh AI Hub</h1>
+                <span class="brand-tag">Member 5 Infrastructure</span>
+            </div>
+            <div id="hub-status-badge" class="status-badge">
+                <span class="status-dot"></span>
+                <span id="hub-status-text">Hub Online (Offline Mode)</span>
+            </div>
+        </header>
+
+        <div class="grid-layout">
+            <!-- 1. Classroom LAN Sharing Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">📡</span> Classroom LAN Sharing
+                    </div>
+                </div>
+                <div class="qr-section">
+                    <img id="qr-code-img" class="qr-image" src="" alt="LAN Access QR Code">
+                    <div id="lan-url-display" class="lan-url-box">Detecting LAN IP...</div>
+                </div>
+                <div class="metric-group" style="margin-top: 0.5rem;">
+                    <div class="metric-row">
+                        <span class="metric-label">Host Binding</span>
+                        <span id="lan-host" class="metric-value">0.0.0.0</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Port</span>
+                        <span id="lan-port" class="metric-value">8000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Hardware Profiler Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">💻</span> Hardware Profiler
+                    </div>
+                </div>
+                <div class="metric-group">
+                    <div class="metric-row">
+                        <span class="metric-label">System RAM</span>
+                        <span id="hw-ram" class="metric-value">-- GB</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Available RAM</span>
+                        <span id="hw-avail-ram" class="metric-value">-- GB</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CPU Model</span>
+                        <span id="hw-cpu-name" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">CPU Cores / Threads</span>
+                        <span id="hw-cpu-cores" class="metric-value">-- / --</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Storage (Available / Total)</span>
+                        <span id="hw-storage" class="metric-value">-- / -- GB</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">GPU Acceleration</span>
+                        <span id="hw-gpu" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Platform OS</span>
+                        <span id="hw-platform" class="metric-value">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. Smart Model Selection Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">🧠</span> Smart Model Selection
+                    </div>
+                </div>
+                <div class="metric-group">
+                    <div class="metric-row">
+                        <span class="metric-label">Selected Tier</span>
+                        <span id="model-tier" class="metric-value" style="color: var(--accent-blue);">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Recommended Model</span>
+                        <span id="model-name" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Runtime Engine</span>
+                        <span id="model-runtime" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Quantization</span>
+                        <span id="model-quant" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Context Window</span>
+                        <span id="model-context" class="metric-value">-- tokens</span>
+                    </div>
+                    <div class="metric-row" style="flex-direction: column; align-items: flex-start; gap: 0.3rem; margin-top: 0.5rem;">
+                        <span class="metric-label">Selection Rationale</span>
+                        <span id="model-reason" class="metric-value" style="font-size: 0.8rem; font-family: var(--font-main); color: var(--text-muted);">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. Semantic Cache Performance Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">⚡</span> Semantic Cache Performance
+                    </div>
+                </div>
+                <div class="metric-group">
+                    <div class="metric-row">
+                        <span class="metric-label">Total Cache Entries</span>
+                        <span id="cache-total" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Approved Answers</span>
+                        <span id="cache-approved" class="metric-value" style="color: var(--accent-green);">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Unapproved Pending</span>
+                        <span id="cache-unapproved" class="metric-value" style="color: var(--accent-amber);">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Total Cache Hits</span>
+                        <span id="cache-hits" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Avg Response Latency</span>
+                        <span id="cache-latency" class="metric-value">-- ms</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. Sync Manager Card -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <span class="card-icon">🔄</span> Sync Manager
+                    </div>
+                    <button class="btn" onclick="triggerSyncCheck()">Check Updates</button>
+                </div>
+                <div class="metric-group">
+                    <div class="metric-row">
+                        <span class="metric-label">Internet Connectivity</span>
+                        <span id="sync-internet" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Sync Status</span>
+                        <span id="sync-status-text" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Last Synchronization</span>
+                        <span id="sync-last-time" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Software Version</span>
+                        <span id="sync-sw-ver" class="metric-value">--</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Curriculum / Language Pack</span>
+                        <span id="sync-curr-ver" class="metric-value">--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            EduMesh AI — Offline, Multilingual, Curriculum-Aware AI for Low-Resource Classrooms | Member 5 Infrastructure
+        </footer>
+    </div>
+
+    <script>
+        async function fetchInfrastructureData() {
+            try {
+                // 1. LAN & QR Code
+                const lanRes = await fetch('/api/infrastructure/lan/qr');
+                if (lanRes.ok) {
+                    const lanData = await lanRes.json();
+                    document.getElementById('lan-url-display').innerText = lanData.lan_url;
+                    document.getElementById('qr-code-img').src = lanData.qr_code_base64;
+                }
+
+                const lanInfoRes = await fetch('/api/infrastructure/lan');
+                if (lanInfoRes.ok) {
+                    const info = await lanInfoRes.json();
+                    document.getElementById('lan-host').innerText = info.host;
+                    document.getElementById('lan-port').innerText = info.port;
+                }
+
+                // 2. Hardware
+                const hwRes = await fetch('/api/infrastructure/hardware');
+                if (hwRes.ok) {
+                    const hw = await hwRes.json();
+                    document.getElementById('hw-ram').innerText = `${hw.ram_gb} GB`;
+                    document.getElementById('hw-avail-ram').innerText = `${hw.available_ram_gb} GB`;
+                    document.getElementById('hw-cpu-name').innerText = hw.cpu_name;
+                    document.getElementById('hw-cpu-cores').innerText = `${hw.cpu_cores} cores / ${hw.cpu_threads} threads`;
+                    document.getElementById('hw-storage').innerText = `${hw.storage_available_gb} GB / ${hw.storage_total_gb} GB`;
+                    document.getElementById('hw-gpu').innerText = hw.gpu_available ? `${hw.gpu_name} (${hw.vram_gb}GB VRAM)` : 'None (CPU Execution)';
+                    document.getElementById('hw-platform').innerText = hw.platform;
+                }
+
+                // 3. Model Selection
+                const modelRes = await fetch('/api/infrastructure/model-selection');
+                if (modelRes.ok) {
+                    const m = await modelRes.json();
+                    document.getElementById('model-tier').innerText = m.name;
+                    document.getElementById('model-name').innerText = m.model;
+                    document.getElementById('model-runtime').innerText = m.runtime;
+                    document.getElementById('model-quant').innerText = m.quantization;
+                    document.getElementById('model-context').innerText = `${m.max_context} tokens`;
+                    document.getElementById('model-reason').innerText = m.reason;
+                }
+
+                // 4. Cache Stats
+                const cacheRes = await fetch('/api/infrastructure/cache/stats');
+                if (cacheRes.ok) {
+                    const c = await cacheRes.json();
+                    document.getElementById('cache-total').innerText = c.total_entries;
+                    document.getElementById('cache-approved').innerText = c.approved_entries;
+                    document.getElementById('cache-unapproved').innerText = c.unapproved_entries;
+                    document.getElementById('cache-hits').innerText = c.total_hits;
+                    document.getElementById('cache-latency').innerText = `${c.avg_cache_response_latency_ms} ms`;
+                }
+
+                // 5. Sync Status
+                const syncRes = await fetch('/api/infrastructure/sync/status');
+                if (syncRes.ok) {
+                    const s = await syncRes.json();
+                    const isOnline = s.internet_available;
+                    document.getElementById('sync-internet').innerHTML = isOnline 
+                        ? `<span style="color: var(--accent-green)">CONNECTED</span>` 
+                        : `<span style="color: var(--text-muted)">DISCONNECTED (OFFLINE MODE)</span>`;
+                    document.getElementById('sync-status-text').innerText = s.status.toUpperCase();
+                    document.getElementById('sync-last-time').innerText = s.last_sync ? new Date(s.last_sync).toLocaleString() : 'Never';
+                    document.getElementById('sync-sw-ver').innerText = s.software_version || '1.0.0';
+                    document.getElementById('sync-curr-ver').innerText = `${s.curriculum_version} / ${s.language_version}`;
+                }
+            } catch (err) {
+                console.error("Error fetching infrastructure telemetry:", err);
+            }
+        }
+
+        async function triggerSyncCheck() {
+            try {
+                const res = await fetch('/api/infrastructure/sync/check', { method: 'POST' });
+                if (res.ok) {
+                    const data = await res.json();
+                    alert(`Sync Check Complete:\nInternet: ${data.internet_available ? 'Online' : 'Offline'}\nStatus: ${data.status}\nMessage: ${data.message}`);
+                    fetchInfrastructureData();
+                }
+            } catch (err) {
+                alert("Error triggering sync check: " + err);
+            }
+        }
+
+        // Initialize and refresh periodically
+        fetchInfrastructureData();
+        setInterval(fetchInfrastructureData, 10000);
+    </script>
+</body>
+</html>
