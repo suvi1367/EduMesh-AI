@@ -1,0 +1,8 @@
+venv/
+__pycache__/
+*.pyc
+desktop.ini
+
+# Large/generated files
+sample.pdf
+vector_store/
