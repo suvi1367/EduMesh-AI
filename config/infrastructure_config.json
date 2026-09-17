@@ -1,0 +1,20 @@
+{
+  "hub": {
+    "host": "0.0.0.0",
+    "port": 8000,
+    "name": "EduMesh AI Classroom Hub",
+    "offline_mode": true
+  },
+  "cache": {
+    "similarity_threshold": 0.85,
+    "require_approval": true,
+    "embedding_model": "all-MiniLM-L6-v2",
+    "embedding_dim": 384
+  },
+  "sync": {
+    "enabled": true,
+    "auto_install": false,
+    "sync_server_url": "https://sync.edumeshai.org/api/updates",
+    "check_interval_minutes": 60
+  }
+}
