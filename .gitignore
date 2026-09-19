@@ -6,3 +6,7 @@ desktop.ini
 # Large/generated files
 sample.pdf
 vector_store/
+
+# Backend data (databases, uploaded documents)
+data/
+*.db

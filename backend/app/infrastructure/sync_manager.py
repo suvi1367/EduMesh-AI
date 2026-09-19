@@ -4,13 +4,11 @@ import os
 from datetime import datetime
 from typing import Dict, Any, List, Optional
 from sqlalchemy.orm import Session
-from backend.database import SyncHistoryEntry
+from app.models import SyncHistoryEntry
 
-MANIFEST_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
-    "config",
-    "sync_manifest.json"
-)
+from app.config import settings
+
+MANIFEST_PATH = os.path.join(settings.DATA_DIR, "sync_manifest.json")
 
 DEFAULT_MANIFEST = {
     "software_version": "1.0.0",

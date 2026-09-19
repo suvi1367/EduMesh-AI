@@ -4,7 +4,7 @@ import re
 from datetime import datetime
 from typing import List, Optional, Dict, Any
 from sqlalchemy.orm import Session
-from backend.database import SemanticCacheEntry
+from app.models import SemanticCacheEntry
 
 
 def _simple_deterministic_vector(text: str, dim: int = 128) -> List[float]:

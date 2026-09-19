@@ -3,22 +3,22 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from backend.database import get_db
-from backend.infrastructure.lan_utils import get_lan_hub_info, generate_qr_code_base64
-from backend.infrastructure.hardware_profiler import get_hardware_profile
-from backend.infrastructure.model_selector import select_model, get_model_configurations
-from backend.infrastructure.semantic_cache import (
+from app.database import get_db
+from app.infrastructure.lan_utils import get_lan_hub_info, generate_qr_code_base64
+from app.infrastructure.hardware_profiler import get_hardware_profile
+from app.infrastructure.model_selector import select_model, get_model_configurations
+from app.infrastructure.semantic_cache import (
     cache_lookup,
     cache_store,
     approve_cache_entry,
     invalidate_cache_entry,
-    get_cache_stats
+    get_cache_stats,
 )
-from backend.infrastructure.sync_manager import (
+from app.infrastructure.sync_manager import (
     check_internet_available,
     check_for_updates,
     get_sync_history,
-    load_sync_manifest
+    load_sync_manifest,
 )
 
 router = APIRouter(prefix="/api/infrastructure", tags=["Infrastructure & Hub"])
